@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from "react";
 import Header from './Header';
+import  checkValidation  from "../utils/validate";
+
 
 
 const Login = () => {
 
     const [isLogin, setIsLogin] = useState(true);
+    const email = useRef(null);
+    const password = useRef(null);
+    const [error,setError]=useState("")
+
     const handleLogin = () => {
         setIsLogin(!isLogin);
+    }
+    const handleValidate = () => {
+        console.log(email.current.value, password.current.value);
+        setError(checkValidation(email.current.value, password.current.value));
     }
 
   return (
@@ -18,7 +28,10 @@ const Login = () => {
                   alt="netflix-background"
               />
           </div>
-          <form className="w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white bg-opacity-80">
+          <form
+              onSubmit={(e) => e.preventDefault()}
+              className="w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white bg-opacity-80"
+          >
               <h1 className="font-bold text-3xl py-4">
                   {isLogin ? "Sign In" : "Sign Up"}
               </h1>
@@ -30,16 +43,24 @@ const Login = () => {
                   />
               )}
               <input
+                  ref={email}
                   type="text"
                   placeholder="Email Address"
                   className="p-4 my-4 w-full bg-gray-700"
               />
               <input
+                  ref={password}
                   type="Password"
                   placeholder="password"
                   className="p-4 my-4 w-full bg-gray-700"
               />
-              <button className="p-4 my-6 w-full bg-red-700">{isLogin?"Sign In":"Sign Up"}</button>
+              <p className="text-red-700 font-bold">{error}</p>
+              <button
+                  onClick={handleValidate}
+                  className="p-4 my-6 w-full bg-red-700"
+              >
+                  {isLogin ? "Sign In" : "Sign Up"}
+              </button>
               <span>{isLogin ? "New to Netflix?" : "Already registred?"}</span>
               <span onClick={handleLogin} className="pl-1 cursor-pointer">
                   {!isLogin ? "Sign in now" : "Sign up now"}
