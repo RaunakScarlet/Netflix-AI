@@ -21,4 +21,4 @@ const useNowPlayingMovies = () => {
         dispatch(addNowPlayingMovies(json.results));
     };
 }
- export default useNowPlayingMovies
+export default useNowPlayingMovies;
