@@ -5,6 +5,7 @@ import {auth } from '../utils/firebase'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUser, removeUser } from '../store/userSlice';
+import { USER_PROFILE } from '../utils/constants';
 
 const Header = () => {
 
@@ -24,7 +25,7 @@ const Header = () => {
     }
     
      useEffect(() => {
-         onAuthStateChanged(auth, (user) => {
+        const unsubscribe= onAuthStateChanged(auth, (user) => {
              if (user) {
                  const { uid, displayName, email, photoURL } = user;
                  dispatch(
@@ -41,7 +42,9 @@ const Header = () => {
                  dispatch(removeUser());
                  navigate("/");
              }
-         });
+        });
+         
+         return () => unsubscribe();
      }, []);
 
     return (
@@ -52,7 +55,7 @@ const Header = () => {
                 <div className="flex p-2">
                     <img
                         className="w-12 h-12"
-                        src="https://media.licdn.com/dms/image/D4D03AQEzeJEludrHSg/profile-displayphoto-shrink_400_400/0/1673032234941?e=1703721600&v=beta&t=5ZGnYT4yaOauyIbAi9W6fImX9fIOvq9W9pKq1BYtqsg"
+                        src={USER_PROFILE}
                         alt="profileImage "
                     />
                     <button
