@@ -1,22 +1,95 @@
 import React, { useState, useRef } from "react";
 import Header from './Header';
-import  checkValidation  from "../utils/validate";
+import checkValidation from "../utils/validate";
+import { auth } from '../utils/firebase'
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+} from "firebase/auth";
+
+import { useDispatch } from "react-redux";
+import { addUser } from "../store/userSlice";
 
 
 
 const Login = () => {
 
     const [isLogin, setIsLogin] = useState(true);
+    const name = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
-    const [error,setError]=useState("")
+    const [error, setError] = useState("");
+
+    const dispatch = useDispatch();
 
     const handleLogin = () => {
         setIsLogin(!isLogin);
     }
     const handleValidate = () => {
         console.log(email.current.value, password.current.value);
-        setError(checkValidation(email.current.value, password.current.value));
+        const message = checkValidation(email.current.value, password.current.value);
+        setError(message);
+
+        if (message !== null) return;
+
+        if (!isLogin) {
+            createUserWithEmailAndPassword(
+                auth,
+                email.current.value,
+                password.current.value
+            )
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    updateProfile(user, {
+                        displayName: name.current.value,
+                        photoURL:
+                            "https://media.licdn.com/dms/image/D4D03AQEzeJEludrHSg/profile-displayphoto-shrink_400_400/0/1673032234941?e=1703721600&v=beta&t=5ZGnYT4yaOauyIbAi9W6fImX9fIOvq9W9pKq1BYtqsg",
+                    })
+                        .then(() => {
+
+                            const { uid, displayName, email, photoURL } = auth.currentUser;
+                            dispatch(
+                                addUser({
+                                    uid: uid,
+                                    displayName: displayName,
+                                    email: email,
+                                    photoURL: photoURL,
+                                })
+                            );
+                           
+                        })
+                        .catch((error) => {
+                            setError(error);
+                        });
+                    
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setError(errorCode + " " + errorMessage);
+                });
+           
+        } else {
+            signInWithEmailAndPassword(
+                auth,
+                email.current.value,
+                password.current.value
+            )
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    // ...
+                    
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setError(errorCode + " " + errorMessage);
+                });
+             
+
+        }
     }
 
   return (
@@ -24,7 +97,7 @@ const Login = () => {
           <Header />
           <div className="absolute">
               <img
-                  src="https://assets.nflxext.com/ffe/siteui/vlv3/dace47b4-a5cb-4368-80fe-c26f3e77d540/f5b52435-458f-498f-9d1d-ccd4f1af9913/IN-en-20231023-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
+                  src="https://assets.nflxext.com/ffe/siteui/vlv3/dace47b4-a5cb-4368-80fe-c26f3e77d540/f5b52435-458f-498f-9d1d-ccd4f1af9913/IN-en-20231023-popsignuptwoweeks-perspective_alpha_website_large.jpg"
                   alt="netflix-background"
               />
           </div>
@@ -37,6 +110,7 @@ const Login = () => {
               </h1>
               {!isLogin && (
                   <input
+                      ref={name}
                       type="text"
                       placeholder="Full Name"
                       className="p-4 my-4 w-full bg-gray-700"
