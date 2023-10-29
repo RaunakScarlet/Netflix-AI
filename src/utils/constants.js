@@ -5,13 +5,14 @@ export const LOGIN_BACKGROUND = "https://assets.nflxext.com/ffe/siteui/vlv3/dace
 
 export const CDN_IMG_URL = "https://image.tmdb.org/t/p/w500";
     
-export const API_OPTIONS={
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZWRjMTA2ZjI3MzRiNTBhY2M0ZGU0ZDQ2NDdkYzczMSIsInN1YiI6IjY1M2NiZWUwNTkwN2RlMDExYmM0N2NmZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vvCRWVObazlvikQqzg64bq0CIDH7kimw8uJi_J6ENs4'
-  }
+export const API_OPTIONS = {
+    method: "GET",
+    headers: {
+        accept: "application/json",
+        Authorization: "Bearer " + process.env.REACT_APP_TMDB_KEY,
+    },
 };
+
 
 export const SUPPORTED_LANGUAGE = [
     {
@@ -27,3 +28,5 @@ export const SUPPORTED_LANGUAGE = [
         name: "Spanish",
     },
 ];
+
+export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
