@@ -12,3 +12,18 @@ export const API_OPTIONS={
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZWRjMTA2ZjI3MzRiNTBhY2M0ZGU0ZDQ2NDdkYzczMSIsInN1YiI6IjY1M2NiZWUwNTkwN2RlMDExYmM0N2NmZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vvCRWVObazlvikQqzg64bq0CIDH7kimw8uJi_J6ENs4'
   }
 };
+
+export const SUPPORTED_LANGUAGE = [
+    {
+        identifier: "en",
+        name: "English",
+    },
+    {
+        identifier: "hindi",
+        name: "Hindi",
+    },
+    {
+        identifier: "spanish",
+        name: "Spanish",
+    },
+];
