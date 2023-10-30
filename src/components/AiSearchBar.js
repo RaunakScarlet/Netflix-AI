@@ -59,13 +59,13 @@ const AiSearchBar = () => {
 
     
   return (
-      <div className="pt-[10%] flex flex-col items-center">
-          <h1 className="text-3xl text-white md:text-5xl mb-3 font-bold">
+      <div className="pt-[40%] md:pt-[10%] flex flex-col items-center">
+          <h1 className=" md:w-1/2 text-3xl text-white md:text-5xl mb-3 font-bold">
               Let AI be your Movie Guru!
           </h1>
           <form
               onSubmit={(e) => e.preventDefault()}
-              className=" w-1/2 bg-black grid grid-cols-12"
+              className=" w-full md:w-1/2 bg-black grid grid-cols-12"
           >
               <input
                   ref={searchMovieName}
@@ -81,7 +81,7 @@ const AiSearchBar = () => {
               </button>
           </form>
 
-          <p className="text-lg mt-1 text-white">
+          <p className="text-lg mt-1 text-white p-6">
               Note: Movie recommendations powered by GPT are available on
               request due to paid APIs.
               <a

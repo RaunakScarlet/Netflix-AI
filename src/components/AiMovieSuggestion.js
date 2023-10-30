@@ -19,4 +19,5 @@ const AiMovieSuggestion = () => {
         </div>
     );
 };
+
 export default AiMovieSuggestion;
