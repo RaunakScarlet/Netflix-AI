@@ -59,7 +59,10 @@ const AiSearchBar = () => {
 
     
   return (
-      <div className="pt-[10%] flex justify-center">
+      <div className="pt-[10%] flex flex-col items-center">
+          <h1 className="text-3xl text-white md:text-5xl mb-3 font-bold">
+              Let AI be your Movie Guru!
+          </h1>
           <form
               onSubmit={(e) => e.preventDefault()}
               className=" w-1/2 bg-black grid grid-cols-12"
@@ -77,6 +80,19 @@ const AiSearchBar = () => {
                   {lang[langKey].search}
               </button>
           </form>
+
+          <p className="text-lg mt-1 text-white">
+              Note: Movie recommendations powered by GPT are available on
+              request due to paid APIs.
+              <a
+                  href="https://www.linkedin.com/in/raunak-scarlet/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-lg mt-1 font-bold text-white"
+              >
+                  Request now
+              </a>
+          </p>
       </div>
   );
 }

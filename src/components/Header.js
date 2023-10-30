@@ -60,7 +60,10 @@ dispatch(toggleLanguage(e.target.value));
     }
     return (
         <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-            <img className="w-44" src={Netflix_Logo} alt="Netflix_Logo" />
+            <img className="w-44 cursor-pointer" src={Netflix_Logo} alt="Netflix_Logo"
+                onClick={
+               ()=> window.location.href = '/' 
+            }/>
 
             {user && (
                 <div className="flex p-2">
